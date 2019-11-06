@@ -15,12 +15,13 @@
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend class="mb-3"><?= __('Add User') ?></legend>
         <?php
             echo $this->Form->control('email');
             echo $this->Form->control('password');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
     <?= $this->Form->end() ?>
+    <?= $this->Html->link(__('Back'), ['controller' => 'Users', 'action' => 'index'], ['class' => 'btn btn-secondary']) ?>
 </div>
