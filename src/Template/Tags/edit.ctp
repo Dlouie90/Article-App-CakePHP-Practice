@@ -27,6 +27,7 @@
             echo $this->Form->control('articles._ids', ['options' => $articles]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary mt-3']) ?>
     <?= $this->Form->end() ?>
+    <?= $this->Html->link(__('Back'), ['controller' => 'tags', 'action' => 'index'], ['class' => 'btn btn-secondary mt-3']) ?>
 </div>

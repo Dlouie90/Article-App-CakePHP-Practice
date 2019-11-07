@@ -49,11 +49,14 @@ $cakeDescription = 'News Article App';
                 <li class="nav-item">
                     <?= $this->Html->link(__('Users'), ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>
                 </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                </li>
             </ul>
         </div>
     </nav>
     <?= $this->Flash->render() ?>
-    <div class="container clearfix">
+    <div class="clearfix mr-3 ml-3">
         <?= $this->fetch('content') ?>
     </div>
     <footer>

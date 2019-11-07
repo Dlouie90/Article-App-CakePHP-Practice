@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Tag $tag
@@ -17,10 +18,11 @@
     <fieldset>
         <legend><?= __('Add Tag') ?></legend>
         <?php
-            echo $this->Form->control('title');
-            echo $this->Form->control('articles._ids', ['options' => $articles]);
+        echo $this->Form->control('title');
+        echo $this->Form->control('articles._ids', ['options' => $articles]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary mt-3']) ?>
     <?= $this->Form->end() ?>
+    <?= $this->Html->link(__('Back'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'btn btn-secondary mt-3']) ?>
 </div>
