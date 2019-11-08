@@ -33,7 +33,8 @@ class ArticlesController extends AppController
 
         // Allow the display action so our pages controller
         // continues to work. Also enable the read only actions.
-        $this->Auth->allow(['display', 'view', 'index', 'tags']);
+        $this->Auth->allow(['display', 'view', 'index']);
+        $this->Auth->allow(['tags']);
     }
 
     public function index()
@@ -68,19 +69,16 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('Unable to add your article.'));
         }
-        // Get a list of tags.
-        $tags = $this->Articles->Tags->find('list');
-
-        // Set tags to the view context
-        $this->set('tags', $tags);
-
         $this->set('article', $article);
     }
 
     public function edit($slug)
     {
-        $article = $this->Articles->findBySlug($slug)->contain(['Tags'])
+        $article = $this->Articles
+            ->findBySlug($slug)
+            ->contain('Tags') // load associated Tags
             ->firstOrFail();
+
         if ($this->request->is(['post', 'put'])) {
             $this->Articles->patchEntity($article, $this->request->getData(), [
                 // Added: Disable modification of user_id.
@@ -92,13 +90,6 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('Unable to update your article.'));
         }
-
-        // Get a list of tags.
-        $tags = $this->Articles->Tags->find('list');
-
-        // Set tags to the view context
-        $this->set('tags', $tags);
-
         $this->set('article', $article);
     }
 
@@ -113,8 +104,12 @@ class ArticlesController extends AppController
         }
     }
 
-    public function tags(...$tags)
+    public function tags()
     {
+        // The 'pass' key is provided by CakePHP and contains all
+        // the passed URL path segments in the request.
+        $tags = $this->request->getParam('pass');
+
         // Use the ArticlesTable to find tagged articles.
         $articles = $this->Articles->find('tagged', [
             'tags' => $tags
